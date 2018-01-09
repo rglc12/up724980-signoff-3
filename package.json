@@ -9,4 +9,9 @@
   },
   "author": "",
   "license": "ISC"
+  "dependancies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "simple-google-openid": "0.0.11"
+  }
 }
