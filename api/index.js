@@ -21,7 +21,7 @@ api.get('/random', async (req, res) => {
 
 })
 
-api.get('/user/roles', (req, res) => {
+/*api.get('/user/roles', (req, res) => {
 
     const currentUser = userRoles.find((user) => { return user.email == req.user.emails[0].value; });
     res.send(currentUser? currentUser.roles : []);
@@ -108,6 +108,6 @@ function checkAdmin(req) {
     } else {
         return false;
     }
-}
+}*/
 
 module.exports = api;
