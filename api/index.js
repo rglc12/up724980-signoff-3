@@ -11,7 +11,7 @@ api.get('/random', async (req, res) => {
 
     if(req.user.displayName){
 
-        res.send(Math.random());
+        res.send(Math.random().toString());
 
     } else {
 
