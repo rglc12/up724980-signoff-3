@@ -21,13 +21,14 @@ api.get('/random', async (req, res) => {
 
 })
 
-/*api.get('/user/roles', (req, res) => {
+api.get('/user/roles', (req, res) => {
 
-    const currentUser = userRoles.find((user) => { return user.email == req.user.emails[0].value; });
-    res.send(currentUser? currentUser.roles : []);
+    const user = userRoles.find((user) => { return user.email == req.user.emails[0].value; });
+    res.send(user? user.roles : []);
 
 })
 
+/*
 api.get('/user/request', (req, res) => {
     if (checkAdmin(req)) {
 
