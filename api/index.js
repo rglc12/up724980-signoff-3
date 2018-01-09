@@ -5,7 +5,7 @@ const GoogleAuth = require('simple-google-openid');
 
 const api = express.Router();
 
-api.use(GoogleAuth(511406985315-3rk44gqt9ri26bkkchmi1um20ielribc.apps.googleusercontent.com));
+api.use(GoogleAuth("511406985315-3rk44gqt9ri26bkkchmi1um20ielribc.apps.googleusercontent.com"));
 
 api.use('*', GoogleAuth.guardMiddleware({ realm: 'jwt' }));
 
