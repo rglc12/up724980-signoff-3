@@ -60,13 +60,13 @@ function currentUser(req){
 
 function isUser(user){
 
-    return user.roles.indexOf('user') !== -1; // If the user has 'user' in their roles array
+    return user.roles.indexOf('user') == 1; // If the user has 'user' in their roles array
 
 }
 
 function isAdmin(user){
 
-    return user.roles.indexOf('admin') !== -1; // If the user has 'admin' in their roles array
+    return user.roles.indexOf('admin') == 0; // If the user has 'admin' in their roles array
 
 }
 
