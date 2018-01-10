@@ -167,17 +167,8 @@ api.delete('/user/:email', (req, res) => {
 
     if(isAdmin(currentUser(req))) {
 
-    for(var i = 0; i < users.length; i++) {
-
-        if(users[i].email == req.params.email) {
-
-            users.splice(i, 1); // Removes the user from the array
-            res.sendStatus(204);
-            return;
-        }
-    }
-
-    res.sendStatus(404);
+        users = users.filter((user) => { return user.email !== req.params.email; })
+        res.sendStatus(204);
 
     } else {
 
