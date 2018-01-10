@@ -47,7 +47,7 @@ function currentUser(req){
 
         }
     }
-    // If the user wasn't found, add them to the "database"
+    /*// If the user wasn't found, add them to the "database"
     var newUser = {
         'email': reqEmail,
         'roles': [],
@@ -55,7 +55,7 @@ function currentUser(req){
     };
 
     users.push(newUser);
-    return newUser;
+    return newUser;*/
 }
 
 function isUser(user){
@@ -119,17 +119,17 @@ api.get('/user/request', (req, res) => {
 
     if(isAdmin(currentUser(req))) {
 
-    var userRequests = [];
+    var requests = [];
     for(var i = 0; i < users.length; i++) {
 
         if(users[i].requestedAccess) {
 
-            userRequests.push(users[i].email);
+            requests.push(users[i].email);
 
         }
     }
 
-    res.send(userRequests);
+    res.send(requests);
 
 } else {
 
