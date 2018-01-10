@@ -17,41 +17,28 @@ var users = [
 
     }
 ];
+
 /*
+    Functions
+ */
 
- api.get('/random', async (req, res) => {
-
- if(req.user.displayName){
-
- res.set('Content-Type', 'text/plain');
- res.send(Math.random().toString());
-
- } else {
-
- res.sendStatus(403);
-
- }
-
- })
-*/
-
-// Helper functions
+// Checks the array for a user. If they exist within the array, their data is returned, otherwise a new entry is created
 function currentUser(req){
 
-    var reqEmail = req.user.emails[0].value;
+    var entry = req.user.emails[0].value;
     for(var i = 0; i < users.length; i++) {
 
-        if(users[i].email == reqEmail) {
+        if(users[i].email == entry) {
 
             return users[i];
 
         }
     }
-    // If the user wasn't found, add them to the "database"
+
     var userEntry = {
-        'email': reqEmail,
+        'email': entry,
         'roles': [],
-        'requestedAccess': false
+        'authorise': false
     };
 
     users.push(userEntry);
@@ -80,7 +67,7 @@ api.get('/user/roles', (req, res) => {
 // requests approval for logged-in user (no body)
 api.post('/user/request', (req, res) => {
 
-    currentUser(req).requestedAccess = true;
+    currentUser(req).authorise = true;
     res.sendStatus(202);
 
 })
@@ -122,7 +109,7 @@ api.get('/user/request', (req, res) => {
     var requests = [];
     for(var i = 0; i < users.length; i++) {
 
-        if(users[i].requestedAccess) {
+        if(users[i].authorise) {
 
             requests.push(users[i].email);
 
@@ -148,7 +135,7 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
         if(req.body == users[i].email) {
 
             users[i].roles.push('user');
-            users[i].requestedAccess = false;
+            users[i].authorise = false;
             res.send(users[i]);
             return;
         }
