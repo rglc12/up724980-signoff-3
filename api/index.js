@@ -63,14 +63,14 @@ function isAdmin(user){
     API Functionality
  */
 
-// displays the roles of all the logged in users (from the user array)
+// Displays the roles of all the logged in users (from the user array)
 api.get('/user/roles', (req, res) => {
 
     res.send(currentUser(req).roles);
 
 })
 
-// requests approval for logged-in user (no body)
+// A user requests authorisation approval from admin
 api.post('/user/request', (req, res) => {
 
     currentUser(req).authorise = true;
@@ -93,7 +93,7 @@ api.get('/random', (req, res) => {
     }
 })
 
-// displays all users that exists from the user array
+// Displays all users that exists from the user array
 api.get('/users', (req, res) => {
 
     if(isAdmin(currentUser(req))) {
