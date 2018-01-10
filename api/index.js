@@ -34,6 +34,21 @@ var users = [
  }
  })
 
+ api.get('/random', async (req, res) => {
+
+ if(req.user.displayName){
+
+ res.set('Content-Type', 'text/plain');
+ res.send(Math.random().toString());
+
+ } else {
+
+ res.sendStatus(403);
+
+ }
+
+ })
+
 function isUser(req){
     var user = user.roles.includes('user')
 }
@@ -88,19 +103,18 @@ api.post('/user/request', (req, res) => {
 })
 
 // Once a user is authorised, this function will return a random number. If they're not authorised, there will be a 401 status returned.
-api.get('/random', async (req, res) => {
+api.get('/random', (req, res) => {
 
-    if(req.user.displayName){
+    if(isApproved(currentUser(req))){
 
-    res.set('Content-Type', 'text/plain');
-    res.send(Math.random().toString());
+        res.set('Content-Type', 'text/plain');
+        res.send('' + Math.random());
 
-} else {
+    } else {
 
-    res.sendStatus(403);
+     res.sendStatus(403);
 
-}
-
+    }
 })
 
 // lists all known users
@@ -110,7 +124,7 @@ api.get('/users', (req, res) => {
 
         res.send(users);
 
-    }else {
+    } else {
 
         res.sendStatus(403);
 
@@ -156,36 +170,28 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
             return;
         }
     }
-    res.sendStatus(404);
-}
-else {
-    res.sendStatus(403);
-}
-});
-
-// deletes a user (email in the url)
-api.delete('/user/:email', (req, res) => {
-
-    if(isAdmin(currentUser(req))) {
-
-    for(var i = 0; i < users.length; i++) {
-
-        if(users[i].email == decodeURIComponent(req.params.email)) {
-
-            users.splice(i, 1); // Removes the user from the array
-            res.sendStatus(204);
-            return;
-
-        }
-    }
 
     res.sendStatus(404);
 
-} else {
+    } else {
 
-    res.sendStatus(403);
+        res.sendStatus(403);
 
     }
-});
+})
+
+api.delete('/user/:id', (req, res) => {
+
+    if (isAdmin(req)) {
+
+    users = users.filter((user) = > {return user.email !== req.params.id;})
+    res.sendStatus(204);
+
+    } else {
+
+        res.sendStatus(403);
+
+    }
+})
 
 module.exports = api;
