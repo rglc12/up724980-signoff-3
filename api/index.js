@@ -169,14 +169,14 @@ api.delete('/user/:email', (req, res) => {
 
     for(var i = 0; i < users.length; i++) {
 
-        if(users[i].email == decodeURIComponent(req.params.email)) {
+        if(users[i].email == req.params.email) {
 
             users.splice(i, 1); // Removes the user from the array
             res.sendStatus(204);
             return;
         }
     }
-    
+
     res.sendStatus(404);
 
     } else {
@@ -185,19 +185,5 @@ api.delete('/user/:email', (req, res) => {
 
     }
 })
-
-/*api.delete('/user/:id', (req, res) => {
-
-    if (isAdmin(req)) {
-
-        users = users.filter((user) => {return user.email !== req.params.id;})
-        res.sendStatus(204);
-
-    } else {
-
-        res.sendStatus(403);
-
-    }
-})*/
 
 module.exports = api;
