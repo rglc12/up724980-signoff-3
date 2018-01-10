@@ -152,10 +152,6 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
             res.send(users[i]);
             return;
         }
-    }
-
-    res.sendStatus(404);
-
     } else {
 
         res.sendStatus(403);
@@ -167,7 +163,12 @@ api.delete('/user/:email', (req, res) => {
 
     if(isAdmin(currentUser(req))) {
 
-        users = users.filter((user) => { return user.email !== req.params.email; })
+        users = users.filter((user) => {
+
+            return user.email !== req.params.email;
+
+        })
+
         res.sendStatus(204);
 
     } else {
