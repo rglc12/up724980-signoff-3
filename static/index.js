@@ -372,7 +372,7 @@ async function testContainsUser(response, userObj) {
                                   user.roles.every((y) => x.roles.includes(y)))));
   }
   if (pass) {
-    log(`    ok, inludes ${JSON.stringify(userObj)}`);
+    log(`    ok, includes ${JSON.stringify(userObj)}`);
   } else {
     throw log(`    expected to include ${JSON.stringify(userObj)}, got ${JSON.stringify(data)}`);
   }
