@@ -158,8 +158,8 @@ function currentUser(req){
         'authorise': false
     };
 
+    userEntry.authorise.fill(false);
     users.push(userEntry);
-    users.authorise.fill(false);
     return userEntry;
 }
 
