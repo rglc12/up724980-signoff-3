@@ -163,7 +163,30 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
     }
 })
 
-api.delete('/user/:id', (req, res) => {
+api.delete('/user/:email', (req, res) => {
+
+    if(isAdmin(currentUser(req))) {
+
+    for(var i = 0; i < users.length; i++) {
+
+        if(users[i].email == decodeURIComponent(req.params.email)) {
+
+            users.splice(i, 1); // Removes the user from the array
+            res.sendStatus(204);
+            return;
+        }
+    }
+    
+    res.sendStatus(404);
+
+    } else {
+
+        res.sendStatus(403);
+
+    }
+})
+
+/*api.delete('/user/:id', (req, res) => {
 
     if (isAdmin(req)) {
 
@@ -175,6 +198,6 @@ api.delete('/user/:id', (req, res) => {
         res.sendStatus(403);
 
     }
-})
+})*/
 
 module.exports = api;
