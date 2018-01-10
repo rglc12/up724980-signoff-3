@@ -22,6 +22,21 @@ var users = [
     API Functionality
  */
 
+// Once a user is authorised, this function will return a random number. If they're not authorised, there will be a 401 status returned.
+api.get('/random', (req, res) => {
+
+    if(isUser(currentUser(req))){
+
+    res.set('Content-Type', 'text/plain');
+    res.send(Math.random().toString());
+
+} else {
+
+    res.sendStatus(403);
+
+}
+})
+
 // Displays the roles of all the logged in users (from the user array)
 api.get('/user/roles', (req, res) => {
 
@@ -35,21 +50,6 @@ api.post('/user/request', (req, res) => {
     currentUser(req).authorise = true;
     res.sendStatus(202);
 
-})
-
-// Once a user is authorised, this function will return a random number. If they're not authorised, there will be a 401 status returned.
-api.get('/random', (req, res) => {
-
-    if(isUser(currentUser(req))){
-
-        res.set('Content-Type', 'text/plain');
-        res.send(Math.random().toString());
-
-    } else {
-
-     res.sendStatus(403);
-
-    }
 })
 
 // Displays all users that exists from the user array
@@ -100,7 +100,7 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
         if(req.body == users[i].email) {
 
             users[i].roles.push('user');
-            users[i].authorise = false;
+            //users[i].authorise = false;
             res.send(users[i]);
             return;
         }
@@ -159,6 +159,7 @@ function currentUser(req){
     };
 
     users.push(userEntry);
+    users.authorise.fill(false);
     return userEntry;
 }
 
