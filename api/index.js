@@ -19,21 +19,6 @@ var users = [
 ];
 /*
 
- // retrieves a random number
- api.get('/random', (req, res) => {
-
- if(isApproved(currentUser(req))){
-
- res.set('Content-Type', 'text/plain');
- res.send('' + Math.random());
-
- } else {
-
- res.sendStatus(403);
-
- }
- })
-
  api.get('/random', async (req, res) => {
 
  if(req.user.displayName){
@@ -48,10 +33,6 @@ var users = [
  }
 
  })
-
-function isUser(req){
-    var user = user.roles.includes('user')
-}
 */
 
 // Helper functions
@@ -77,27 +58,29 @@ function currentUser(req){
     return newUser;
 }
 
-function isApproved(user){
+function isUser(user){
+
     return user.roles.indexOf('user') !== -1; // If the user has 'user' in their roles array
+
 }
 
 function isAdmin(user){
+
     return user.roles.indexOf('admin') !== -1; // If the user has 'admin' in their roles array
+
 }
 
 // retrieves roles of logged-in user
 api.get('/user/roles', (req, res) => {
 
-    var user = currentUser(req);
-    res.send(user.roles);
+    res.send(currentUser(req).roles);
 
 })
 
 // requests approval for logged-in user (no body)
 api.post('/user/request', (req, res) => {
 
-    var user = currentUser(req);
-    user.requestedAccess = true;
+    currentUser(req).requestedAccess = true;
     res.sendStatus(202);
 
 })
@@ -105,7 +88,7 @@ api.post('/user/request', (req, res) => {
 // Once a user is authorised, this function will return a random number. If they're not authorised, there will be a 401 status returned.
 api.get('/random', (req, res) => {
 
-    if(isApproved(currentUser(req))){
+    if(isUser(currentUser(req))){
 
         res.set('Content-Type', 'text/plain');
         res.send('' + Math.random());
@@ -184,8 +167,8 @@ api.delete('/user/:id', (req, res) => {
 
     if (isAdmin(req)) {
 
-    users = users.filter((user) => {return user.email !== req.params.id;})
-    res.sendStatus(204);
+        users = users.filter((user) => {return user.email !== req.params.id;})
+        res.sendStatus(204);
 
     } else {
 
