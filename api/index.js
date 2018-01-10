@@ -45,19 +45,21 @@ function currentUser(req){
     return userEntry;
 }
 
+// Validation check to see if a user has the role of 'user'
 function isUser(user){
 
     return !!user.roles.includes('user');
 
 }
 
+// Validation check to see if a user has the role of 'admin'
 function isAdmin(user){
 
     return !!user.roles.includes('admin');
 
 }
 
-// retrieves roles of logged-in user
+// displays the roles of all the logged in users (from the user array)
 api.get('/user/roles', (req, res) => {
 
     res.send(currentUser(req).roles);
@@ -78,7 +80,7 @@ api.get('/random', (req, res) => {
     if(isUser(currentUser(req))){
 
         res.set('Content-Type', 'text/plain');
-        res.send('' + Math.random());
+        res.send(Math.random().toString());
 
     } else {
 
@@ -118,9 +120,9 @@ api.get('/user/request', (req, res) => {
 
     res.send(requests);
 
-} else {
+    } else {
 
-    res.sendStatus(403);
+        res.sendStatus(403);
 
     }
 })
