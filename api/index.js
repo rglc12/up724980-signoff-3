@@ -12,6 +12,7 @@ api.use('*', GoogleAuth.guardMiddleware({ realm: 'jwt' }));
 var users = [
 
     {
+
         'email': 'up724980@myport.ac.uk',
         'roles': ['admin', 'user']
 
@@ -153,9 +154,11 @@ function currentUser(req){
     }
 
     var userEntry = {
+
         'email': userEmail,
         'roles': [],
         'authorise': false
+
     };
 
     users.push(userEntry);
