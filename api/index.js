@@ -151,8 +151,7 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
             users[i].requestedAccess = false;
             res.send(users[i]);
             return;
-        }
-    } else {
+        } else {
 
         res.sendStatus(403);
 
