@@ -143,20 +143,23 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
 
     if(isAdmin(currentUser(req))) {
 
-        for(var i = 0; i < users.length; i++) {
+    for(var i = 0; i < users.length; i++) {
 
-            if (req.body == users[i].email) {
+        if(req.body == users[i].email) {
 
-                users[i].roles.push('user');
-                users[i].requestedAccess = false;
-                res.send(users[i]);
-                return;
-            } else {
-
-                res.sendStatus(403);
-    
-            }
+            users[i].roles.push('user');
+            users[i].requestedAccess = false;
+            res.send(users[i]);
+            return;
         }
+    }
+
+    res.sendStatus(404);
+
+    } else {
+
+        res.sendStatus(403);
+
     }
 })
 
