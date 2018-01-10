@@ -100,7 +100,7 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
         if(req.body == users[i].email) {
 
             users[i].roles.push('user');
-            //users[i].authorise = false;
+            users[i].authorise = false;
             res.send(users[i]);
             return;
         }
