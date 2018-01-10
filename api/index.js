@@ -47,15 +47,15 @@ function currentUser(req){
 
         }
     }
-    /*// If the user wasn't found, add them to the "database"
-    var newUser = {
+    // If the user wasn't found, add them to the "database"
+    var userEntry = {
         'email': reqEmail,
         'roles': [],
         'requestedAccess': false
     };
 
-    users.push(newUser);
-    return newUser;*/
+    users.push(userEntry);
+    return userEntry;
 }
 
 function isUser(user){
