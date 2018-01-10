@@ -25,10 +25,10 @@ var users = [
 // Checks the array for a user. If they exist within the array, their data is returned, otherwise a new entry is created
 function currentUser(req){
 
-    var entry = req.user.emails[0].value;
+    var userEmail = req.user.emails[0].value;
     for(var i = 0; i < users.length; i++) {
 
-        if(users[i].email == entry) {
+        if(users[i].email == userEmail) {
 
             return users[i];
 
@@ -36,7 +36,7 @@ function currentUser(req){
     }
 
     var userEntry = {
-        'email': entry,
+        'email': userEmail,
         'roles': [],
         'authorise': false
     };
