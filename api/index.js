@@ -145,7 +145,7 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
 
     for(var i = 0; i < users.length; i++) {
 
-        if(req.body == users[i].email) {
+        if (req.body == users[i].email) {
 
             users[i].roles.push('user');
             users[i].requestedAccess = false;
@@ -153,8 +153,9 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
             return;
         } else {
 
-        res.sendStatus(403);
+            res.sendStatus(403);
 
+        }
     }
 })
 
