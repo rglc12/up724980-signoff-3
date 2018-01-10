@@ -59,6 +59,10 @@ function isAdmin(user){
 
 }
 
+/*
+    API Functionality
+ */
+
 // displays the roles of all the logged in users (from the user array)
 api.get('/user/roles', (req, res) => {
 
@@ -89,7 +93,7 @@ api.get('/random', (req, res) => {
     }
 })
 
-// lists all known users
+// displays all users that exists from the user array
 api.get('/users', (req, res) => {
 
     if(isAdmin(currentUser(req))) {
@@ -103,7 +107,7 @@ api.get('/users', (req, res) => {
     }
 })
 
-// lists approval requests
+// Shows users that are pending authorisation access (Requesting approval from an admin user)
 api.get('/user/request', (req, res) => {
 
     if(isAdmin(currentUser(req))) {
@@ -127,7 +131,7 @@ api.get('/user/request', (req, res) => {
     }
 })
 
-// adds a user (email in the body)
+// Once a user/new user has been approved by admin, they are then added to the user array (email) with their role.
 api.post('/user/approve', bodyParser.text(), (req, res) => {
 
     if(isAdmin(currentUser(req))) {
@@ -152,6 +156,7 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
     }
 })
 
+// Deletes an existing user with a valid email address. The array is searched for a specific email and then removes its entry
 api.delete('/user/:email', (req, res) => {
 
     if(isAdmin(currentUser(req))) {
