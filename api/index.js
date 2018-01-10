@@ -184,7 +184,7 @@ api.delete('/user/:id', (req, res) => {
 
     if (isAdmin(req)) {
 
-    users = users.filter((user) = > {return user.email !== req.params.id;})
+    users = users.filter((user) => {return user.email !== req.params.id;})
     res.sendStatus(204);
 
     } else {
