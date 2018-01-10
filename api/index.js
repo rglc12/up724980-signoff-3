@@ -92,6 +92,7 @@ api.get('/random', async (req, res) => {
 
     if(req.user.displayName){
 
+    res.set('Content-Type', 'text/plain');
     res.send(Math.random().toString());
 
 } else {
