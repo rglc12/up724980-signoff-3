@@ -19,47 +19,6 @@ var users = [
 ];
 
 /*
-    Functions
- */
-
-// Checks the array for a user. If they exist within the array, their data is returned, otherwise a new entry is created
-function currentUser(req){
-
-    var userEmail = req.user.emails[0].value;
-    for(var i = 0; i < users.length; i++) {
-
-        if(users[i].email == userEmail) {
-
-            return users[i];
-
-        }
-    }
-
-    var userEntry = {
-        'email': userEmail,
-        'roles': [],
-        'authorise': false
-    };
-
-    users.push(userEntry);
-    return userEntry;
-}
-
-// Validation check to see if a user has the role of 'user'
-function isUser(user){
-
-    return !!user.roles.includes('user');
-
-}
-
-// Validation check to see if a user has the role of 'admin'
-function isAdmin(user){
-
-    return !!user.roles.includes('admin');
-
-}
-
-/*
     API Functionality
  */
 
@@ -175,5 +134,46 @@ api.delete('/user/:email', (req, res) => {
 
     }
 })
+
+/*
+ Functions
+ */
+
+// Checks the array for a user. If they exist within the array, their data is returned, otherwise a new entry is created
+function currentUser(req){
+
+    var userEmail = req.user.emails[0].value;
+    for(var i = 0; i < users.length; i++) {
+
+        if(users[i].email == userEmail) {
+
+            return users[i];
+
+        }
+    }
+
+    var userEntry = {
+        'email': userEmail,
+        'roles': [],
+        'authorise': false
+    };
+
+    users.push(userEntry);
+    return userEntry;
+}
+
+// Validation check to see if a user has the role of 'user'
+function isUser(user){
+
+    return !!user.roles.includes('user');
+
+}
+
+// Validation check to see if a user has the role of 'admin'
+function isAdmin(user){
+
+    return !!user.roles.includes('admin');
+
+}
 
 module.exports = api;
