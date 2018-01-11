@@ -162,7 +162,7 @@ function createUser(email) {
 
     var userEntry = {
 
-        'email': userEmail,
+        'email': email,
         'roles': [],
         'authorise': false
 
