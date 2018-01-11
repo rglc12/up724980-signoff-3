@@ -31,11 +31,11 @@ api.get('/random', (req, res) => {
     res.set('Content-Type', 'text/plain');
     res.send(Math.random().toString());
 
-} else {
+    } else {
 
-    res.sendStatus(403);
+        res.sendStatus(403);
 
-}
+    }
 })
 
 // Displays the roles of all the logged in users (from the user array)
@@ -96,7 +96,7 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
 
     if(isAdmin(currentUser(req))) {
 
-    for(var i = 0; i < users.length; i++) {
+    for(var i of users) {
 
         if(req.body == users[i].email) {
 
