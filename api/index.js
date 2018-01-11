@@ -150,20 +150,19 @@ function currentUser(req){
 
             return users[i];
 
-        } else {
-
-            var userEntry = {
-
-                'email': userEmail,
-                'roles': [],
-                'authorise': false
-
-            };
-
-            users.push(userEntry);
-            return userEntry; 
         }
     }
+
+    var userEntry = {
+
+        'email': userEmail,
+        'roles': [],
+        'authorise': false
+
+    };
+
+    users.push(userEntry);
+    return userEntry;
 }
 
 // Validation check to see if a user has the role of 'user'
