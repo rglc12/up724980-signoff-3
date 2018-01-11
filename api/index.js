@@ -31,11 +31,11 @@ api.get('/random', (req, res) => {
     res.set('Content-Type', 'text/plain');
     res.send(Math.random().toString());
 
-} else {
+    } else {
 
-    res.sendStatus(403);
+        res.sendStatus(403);
 
-}
+    }
 })
 
 // Displays the roles of all the logged in users (from the user array)
