@@ -7,7 +7,7 @@ api.use(GoogleAuth("511406985315-3rk44gqt9ri26bkkchmi1um20ielribc.apps.googleuse
 
 api.use('*', GoogleAuth.guardMiddleware({ realm: 'jwt' }));
 
-//Users and their roles on the application
+// Users and their roles on the application
 
 var users = [
 
@@ -26,7 +26,7 @@ var users = [
 // Once a user is authorised, this function will return a random number. If they're not authorised, there will be a 401 status returned.
 api.get('/random', (req, res) => {
 
-    if(isUser(currentUser(req))){
+    if(isUser(checkUser(req))){
 
     res.set('Content-Type', 'text/plain');
     res.send(Math.random().toString());
@@ -41,14 +41,14 @@ api.get('/random', (req, res) => {
 // Displays the roles of all the logged in users (from the user array)
 api.get('/user/roles', (req, res) => {
 
-    res.send(currentUser(req).roles);
+    res.send(checkUser(req).roles);
 
 })
 
 // A user requests authorisation approval from admin
 api.post('/user/request', (req, res) => {
 
-    currentUser(req).authorise = true;
+    checkUser(req).authorise = true;
     res.sendStatus(202);
 
 })
@@ -56,7 +56,7 @@ api.post('/user/request', (req, res) => {
 // Displays all users that exists from the user array
 api.get('/users', (req, res) => {
 
-    if(isAdmin(currentUser(req))) {
+    if(isAdmin(checkUser(req))) {
 
         res.send(users);
 
@@ -70,7 +70,7 @@ api.get('/users', (req, res) => {
 // Shows users that are pending authorisation access (Requesting approval from an admin user)
 api.get('/user/request', (req, res) => {
 
-    if(isAdmin(currentUser(req))) {
+    if(isAdmin(checkUser(req))) {
 
     var requests = [];
     for(var i = 0; i < users.length; i++) {
@@ -94,7 +94,7 @@ api.get('/user/request', (req, res) => {
 // Once a user/new user has been approved by admin, they are then added to the user array (email) with their role.
 api.post('/user/approve', bodyParser.text(), (req, res) => {
 
-    if(isAdmin(currentUser(req))) {
+    if(isAdmin(checkUser(req))) {
 
         for(var i = 0; i < users.length; i++) {
 
@@ -119,7 +119,7 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
 // Deletes an existing user with a valid email address. The array is searched for a specific email and then removes its entry
 api.delete('/user/:email', (req, res) => {
 
-    if(isAdmin(currentUser(req))) {
+    if(isAdmin(checkUser(req))) {
 
         users = users.filter((user) => {
 
@@ -137,11 +137,11 @@ api.delete('/user/:email', (req, res) => {
 })
 
 /*
- Functions
+    Functions
  */
 
 // Checks the array for a user. If they exist within the array, their data is returned, otherwise a new entry is created
-function currentUser(req){
+function checkUser(req){
 
     var userEmail = req.user.emails[0].value;
     for(var i = 0; i < users.length; i++) {
@@ -153,6 +153,13 @@ function currentUser(req){
         }
     }
 
+    createUser(userEmail);
+
+}
+
+// Create a new user object in the user array
+function createUser(email) {
+
     var userEntry = {
 
         'email': userEmail,
@@ -163,6 +170,7 @@ function currentUser(req){
 
     users.push(userEntry);
     return userEntry;
+
 }
 
 // Validation check to see if a user has the role of 'user'
