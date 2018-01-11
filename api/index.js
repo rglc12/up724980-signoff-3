@@ -67,7 +67,7 @@ api.get('/users', (req, res) => {
     }
 })
 
-// Shows users that are pending authorisation access (Requesting approval from an admin user)
+// Iterates through the user array and shows each user that is pending authorisation access (Requesting approval from an admin user)
 api.get('/user/request', (req, res) => {
 
     if(isAdmin(checkUser(req))) {
