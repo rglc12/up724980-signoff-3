@@ -153,16 +153,9 @@ function checkUser(req){
         }
     }
 
-    createUser(userEmail);
-
-}
-
-// Create a new user object in the user array
-function createUser(email) {
-
     var userEntry = {
 
-        'email': email,
+        'email': userEmail,
         'roles': [],
         'authorise': false
 
@@ -170,7 +163,6 @@ function createUser(email) {
 
     users.push(userEntry);
     return userEntry;
-
 }
 
 // Validation check to see if a user has the role of 'user'
