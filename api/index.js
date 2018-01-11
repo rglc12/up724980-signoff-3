@@ -96,18 +96,18 @@ api.post('/user/approve', bodyParser.text(), (req, res) => {
 
     if(isAdmin(currentUser(req))) {
 
-    for(var i of users) {
+        for(var i = 0; i < users.length; i++) {
 
-        if(req.body == users[i].email) {
+            if(req.body == users[i].email) {
 
-            users[i].roles.push('user');
-            users[i].authorise = false;
-            res.send(users[i]);
-            return;
+                users[i].roles.push('user');
+                users[i].authorise = false;
+                res.send(users[i]);
+                return;
+            }
         }
-    }
 
-    res.sendStatus(404);
+        res.sendStatus(404);
 
     } else {
 
@@ -150,19 +150,20 @@ function currentUser(req){
 
             return users[i];
 
+        } else {
+
+            var userEntry = {
+
+                'email': userEmail,
+                'roles': [],
+                'authorise': false
+
+            };
+
+            users.push(userEntry);
+            return userEntry; 
         }
     }
-
-    var userEntry = {
-
-        'email': userEmail,
-        'roles': [],
-        'authorise': false
-
-    };
-
-    users.push(userEntry);
-    return userEntry;
 }
 
 // Validation check to see if a user has the role of 'user'
