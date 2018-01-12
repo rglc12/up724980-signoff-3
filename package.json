@@ -7,6 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rglc12/up724980-signoff-3.git"
+  },
   "author": "Ryan Lee Clark",
   "license": "ISC",
   "dependencies": {
